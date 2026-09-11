@@ -2,7 +2,7 @@
 
 ### Python | SQL | Pandas | Excel | Data Analytics
 
-**Author:** Arya Vilas Kadam
+**Author:** Suraj Pathan
 **Target Role:** EY Consulting – Technology Analyst
 **Domain:** Data Analytics
 
