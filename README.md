@@ -3,7 +3,7 @@
 ### Python | SQL | Pandas | Excel | Data Analytics
 
 **Author:** Suraj Pathan
-**Target Role:** EY Consulting – Technology Analyst
+**Target Role:** Technology Analyst
 **Domain:** Data Analytics
 
 ```text
