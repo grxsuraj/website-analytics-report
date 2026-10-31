@@ -235,14 +235,15 @@ website-analytics-report/
 │   ├── device_breakdown.csv
 │   └── monthly_performance.csv
 │
-├── sql/
+├── python/
+│   ├── generate_and_analyse.py
+│   └── etl_pipeline_mssql.py
+│
+├── sql_mssql/
 │   ├── 01_overall_kpis.sql
 │   ├── 02_channel_performance.sql
 │   ├── 03_device_analysis.sql
 │   └── 04_monthly_trends.sql
-│
-├── python/
-│   └── generate_and_analyse.py
 │
 ├── README.md
 └── .gitignore
@@ -274,20 +275,32 @@ The script:
 * generates summary CSV files
 * exports the executive summary to Excel
 
-### SQL Analysis
+#### Microsoft SQL Server ETL Pipeline
 
-The SQL files can be executed against a database containing a table named `website_sessions`.
+The MSSQL pipeline cleans the raw sessions CSV, replaces the `dbo.website_sessions` table,
+runs the T-SQL analyses in `sql_mssql/`, and saves their CSV results to
+`data/sql_results_mssql/`.
 
-Run the queries in the following order:
+The analysis queries cover overall KPIs, channel performance, device performance, and monthly
+trends. They use basic SQL concepts and can also be run manually after the ETL loads the table.
 
-```text
-01_overall_kpis.sql
-02_channel_performance.sql
-03_device_analysis.sql
-04_monthly_trends.sql
+Install the Python dependencies and configure SQL Server with the ODBC Driver 18
+for SQL Server:
+
+```bash
+pip install pandas sqlalchemy pyodbc
 ```
 
-The queries use basic SQL concepts so the analysis remains easy to understand and reproduce.
+Create the `WebsiteAnalytics` database once in SQL Server. The default connection
+uses the `localhost\SQLEXPRESS` instance with Windows authentication; edit
+`SERVER` in `python/etl_pipeline_mssql.py` for another instance. To use a
+different connection string, set the `DB_URL` environment variable.
+
+Run from the repository root:
+
+```bash
+python python/etl_pipeline_mssql.py
+```
 
 ---
 
