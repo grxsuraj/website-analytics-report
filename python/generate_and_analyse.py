@@ -1,8 +1,8 @@
 """
 Website Analytics & Conversion Optimization Pipeline
 -------------------------------------------------------------------
-Author: Arya Vilas Kadam
-Role Context: EY Consulting – Technology Analyst Portfolio
+Author: Suraj Pathan
+Role Context: Consulting – Technology Analyst Portfolio
 Workflow: Raw Data Ingestion -> Data Validation -> KPI Calculation ->
           Channel & Device Aggregation -> Excel / CSV Summary Export
 -------------------------------------------------------------------
