@@ -1,9 +1,8 @@
 # Website Analytics & Conversion Optimization
 
-### Python | SQL | Pandas | Excel | Data Analytics
+### Python | SQL | MSSQL | Pandas | ETL | Excel | Data Analytics
 
 **Author:** Suraj Pathan
-**Target Role:** Technology Analyst
 **Domain:** Data Analytics
 
 ```text
@@ -28,7 +27,7 @@ This project is a technology and data analytics case study focused on understand
 
 The analysis covers **38,181 website sessions** collected over a **24-month period**.
 
-The project uses **basic SQL** for business-oriented analysis, **Python/Pandas** for data validation and automated KPI computation, and **Excel** for presenting summarized results.
+The project uses **basic SQL** for business-oriented analysis, **Python/Pandas** for data validation and automated KPI computation, an **ETL pipeline** that loads the cleaned data into **Microsoft SQL Server**, and **Excel** for presenting summarized results.
 
 The objective is to convert raw website data into actionable business insights and recommendations.
 
@@ -97,21 +96,33 @@ This project answers five core business questions:
 | **Python**          | Data processing and automation                               |
 | **Pandas**          | Data cleaning, aggregation, and analysis                     |
 | **NumPy**           | Numerical calculations where required                        |
+| **Microsoft SQL Server** | Database that stores the cleaned sessions table         |
+| **SQLAlchemy / pyodbc** | Python connection to SQL Server for the ETL load            |
 | **Microsoft Excel** | KPI summary and stakeholder reporting                        |
 
 ---
 
 ## Methodology
 
-The project follows a simple five-step analytics workflow.
+The project follows a simple six-step analytics workflow.
 
 ### 1. Data Ingestion & Validation
 
 Loaded **38,181 session records** into Python and performed basic data-quality checks, including missing-value and duplicate checks.
 
-### 2. SQL Analysis
+### 2. ETL Pipeline (Extract, Transform, Load)
 
-Created four modular SQL queries using basic SQL operations such as:
+Built a Python ETL pipeline (`python/etl_pipeline_mssql.py`) that:
+
+* **Extracts** the raw session records from `data/website_sessions.csv`
+* **Transforms** them by checking the schema, removing duplicate sessions, handling nulls and invalid values, converting data types, and adding a `session_duration_min` column
+* **Loads** the clean data into a Microsoft SQL Server table and verifies that the row count matches
+
+The dataset is synthetic and already clean, so the checks found **0 duplicates, 0 nulls, and 0 invalid rows**.
+
+### 3. SQL Analysis
+
+Created four modular SQL queries (run on the loaded SQL Server table) using basic SQL operations such as:
 
 * `SELECT`
 * `WHERE`
@@ -124,7 +135,7 @@ Created four modular SQL queries using basic SQL operations such as:
 
 The queries analyze overall KPIs, channel performance, device performance, and monthly trends.
 
-### 3. Python/Pandas Analysis
+### 4. Python/Pandas Analysis
 
 Developed a lightweight Python pipeline to:
 
@@ -137,13 +148,13 @@ Developed a lightweight Python pipeline to:
 
 The pipeline is intentionally kept concise and readable for easy maintenance and reproducibility.
 
-### 4. KPI Reporting
+### 5. KPI Reporting
 
 Generated summary outputs covering traffic volume, conversions, conversion rate, bounce rate, and average session duration.
 
 The results are also exported to an Excel executive summary.
 
-### 5. Insights & Recommendations
+### 6. Insights & Recommendations
 
 Converted analytical findings into business insights and practical recommendations based on the observed data.
 
@@ -165,7 +176,7 @@ Converted analytical findings into business insights and practical recommendatio
 
 ### 1. Organic Search Drives the Highest Traffic Volume
 
-**Finding:** Organic Search generated **14,402 sessions**, representing approximately **38% of total traffic**, with a **3.3% conversion rate** and **475 bookings**.
+**Finding:** Organic Search generated **14,402 sessions**, representing approximately **38% of total traffic**, with a **3.3% conversion rate** and **473 bookings**.
 
 **Business Impact:** Organic Search is the clinic's largest acquisition source, making continued attention to search visibility important for maintaining website traffic.
 
@@ -316,9 +327,9 @@ Develop an interactive Power BI dashboard to provide executive-level visualizati
 * device performance
 * monthly trends
 
-### Automated Data Ingestion
+### Scheduled ETL and Live Data Ingestion
 
-Connect the pipeline to a live analytics data source to automate periodic data collection and reporting.
+Schedule the ETL pipeline to run periodically and connect it to a live analytics data source to automate data collection and reporting.
 
 ### A/B Testing
 
@@ -330,6 +341,6 @@ Introduce controlled experiments to evaluate changes to high-traffic pages and m
 
 This project demonstrates a complete but lightweight analytics workflow:
 
-**Business Problem → SQL → Python/Pandas → KPI Analysis → Business Insights → Recommendations**
+**Business Problem → ETL → SQL → Python/Pandas → KPI Analysis → Business Insights → Recommendations**
 
 The focus is on using data to understand a business problem, communicate findings clearly, and identify practical opportunities for improvement.
